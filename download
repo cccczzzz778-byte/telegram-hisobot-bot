@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+.env
+.git/
+reports/
+hisobot_*.xlsx
+muassasalar_preview.png
