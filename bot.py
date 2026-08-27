@@ -101,7 +101,7 @@ async def send_report(message: Message, bot: Bot) -> None:
         except ValueError:
             await message.answer("Sana formati: /hisobot 26.08.2026")
             return
-    submissions = await database.get_for_date(today.isoformat())
+    submissions = await database.get_for_date(today)
     with tempfile.NamedTemporaryFile(
         prefix=f"hisobot_{today:%Y-%m-%d}_", suffix=".xlsx", delete=False
     ) as temporary:
@@ -137,7 +137,7 @@ async def send_stats(message: Message, bot: Bot) -> None:
         except ValueError:
             await message.answer("Sana formati: /stats 26.08.2026")
             return
-    submissions = await database.get_for_date(report_date.isoformat())
+    submissions = await database.get_for_date(report_date)
     on_time = 0
     late = 0
     for submission in submissions.values():

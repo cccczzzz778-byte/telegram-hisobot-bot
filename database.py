@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import date, datetime
 
 import asyncpg
 
@@ -63,7 +63,9 @@ class Database:
             telegram_name, message_id, caption, match_score)
         return result == "INSERT 0 1"
 
-    async def get_for_date(self, report_date: str) -> dict[int, dict]:
+    async def get_for_date(self, report_date: str | date) -> dict[int, dict]:
+        if isinstance(report_date, str):
+            report_date = date.fromisoformat(report_date)
         rows = await self._pool().fetch(
             "SELECT * FROM submissions WHERE report_date = $1::date", report_date
         )
